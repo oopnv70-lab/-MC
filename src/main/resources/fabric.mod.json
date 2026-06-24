@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "chain-mining",
+  "version": "1.0.0",
+  "name": "连锁挖矿",
+  "description": "按住按键 + 挖掘方块，一次性连锁挖掘同类型方块。最多 64 个。",
+  "authors": ["Operit AI"],
+  "contact": {},
+  "license": "AGPL-3.0",
+  "icon": "assets/chain-mining/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.chainmining.ChainMiningMod"
+    ],
+    "client": [
+      "com.chainmining.ChainMiningClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": "26.2",
+    "fabric-api": ">=0.153.0",
+    "fabric-key-mapping-api-v1": ">=2.0.5",
+    "fabric-events-interaction-v0": ">=5.2.6",
+    "fabric-networking-api-v1": ">=6.3.3"
+  }
+}
