@@ -1,0 +1,112 @@
+package com/chainmining;
+
+public super class ChainMiningClient implements net/fabricmc/api/ClientModInitializer version 69:0
+{
+  public static Field CHAIN_MINE_KEY:"Lnet/minecraft/client/KeyMapping;";
+
+  public Method "<init>":"()V"
+    stack 1  locals 1
+  {
+         aload_0;  // line 11
+         invokespecial     Method java/lang/Object."<init>":"()V";
+         return;
+    LineTable:
+         line   11:        0
+  }
+
+  public Method onInitializeClient:"()V"
+    stack 6  locals 1
+  {
+         new               class net/minecraft/client/KeyMapping;  // line 17
+         dup;
+         ldc               String "key.chain-mining.chain_mine";
+         getstatic         Field com/mojang/blaze3d/platform/InputConstants$Type.KEYSYM:"Lcom/mojang/blaze3d/platform/InputConstants$Type;";
+         bipush            86;
+         getstatic         Field net/minecraft/client/KeyMapping$Category.GAMEPLAY:"Lnet/minecraft/client/KeyMapping$Category;";
+         invokespecial     Method net/minecraft/client/KeyMapping."<init>":"(Ljava/lang/String;Lcom/mojang/blaze3d/platform/InputConstants$Type;ILnet/minecraft/client/KeyMapping$Category;)V";
+         putstatic         Field CHAIN_MINE_KEY:"Lnet/minecraft/client/KeyMapping;";
+         getstatic         Field CHAIN_MINE_KEY:"Lnet/minecraft/client/KeyMapping;";  // line 23
+         invokestatic      Method net/fabricmc/fabric/api/client/keymapping/v1/KeyMappingHelper.registerKeyMapping:"(Lnet/minecraft/client/KeyMapping;)Lnet/minecraft/client/KeyMapping;";
+         pop;
+         getstatic         Field net/fabricmc/fabric/api/client/event/lifecycle/v1/ClientTickEvents.END_CLIENT_TICK:"Lnet/fabricmc/fabric/api/event/Event;";  // line 26
+         invokedynamic     InvokeDynamic REF_invokeStatic:Method java/lang/invoke/LambdaMetafactory.metafactory:
+                           "(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;":
+                           onEndTick:"()Lnet/fabricmc/fabric/api/client/event/lifecycle/v1/ClientTickEvents$EndTick;" {
+                             MethodType "(Lnet/minecraft/client/Minecraft;)V",
+                             MethodHandle REF_invokeStatic:Method ChainMiningClient.lambda$onInitializeClient$0:"(Lnet/minecraft/client/Minecraft;)V",
+                             MethodType "(Lnet/minecraft/client/Minecraft;)V"
+                           };
+         invokevirtual     Method net/fabricmc/fabric/api/event/Event.register:"(Ljava/lang/Object;)V";
+         return;  // line 37
+    LineTable:
+         line   17:        0
+         line   23:       20
+         line   26:       27
+         line   37:       38
+  }
+
+  private static synthetic Method lambda$onInitializeClient$0:"(Lnet/minecraft/client/Minecraft;)V"
+    stack 3  locals 4
+  {
+         aload_0;  // line 27
+         getfield          Field net/minecraft/client/Minecraft.player:"Lnet/minecraft/client/player/LocalPlayer;";
+         ifnonnull         L8;
+         return;
+  L8:    stack_frame_type  same;  // line 29
+         getstatic         Field CHAIN_MINE_KEY:"Lnet/minecraft/client/KeyMapping;";
+         invokevirtual     Method net/minecraft/client/KeyMapping.isDown:"()Z";
+         istore_1;
+         aload_0;  // line 30
+         getfield          Field net/minecraft/client/Minecraft.options:"Lnet/minecraft/client/Options;";
+         getfield          Field net/minecraft/client/Options.keyAttack:"Lnet/minecraft/client/KeyMapping;";
+         invokevirtual     Method net/minecraft/client/KeyMapping.isDown:"()Z";
+         istore_2;
+         iload_1;  // line 31
+         ifeq              L38;
+         iload_2;
+         ifeq              L38;
+         iconst_1;
+         goto              L39;
+  L38:   stack_frame_type  append;
+           locals_map      int, int;
+         iconst_0;
+  L39:   stack_frame_type  stack1;
+           stack_map       int;
+         istore_3;
+         getstatic         Field ChainMiningPacket.TYPE:"Lnet/minecraft/network/protocol/common/custom/CustomPacketPayload$Type;";  // line 33
+         invokestatic      Method net/fabricmc/fabric/api/client/networking/v1/ClientPlayNetworking.canSend:"(Lnet/minecraft/network/protocol/common/custom/CustomPacketPayload$Type;)Z";
+         ifeq              L60;
+         new               class ChainMiningPacket;  // line 34
+         dup;
+         iload_3;
+         invokespecial     Method ChainMiningPacket."<init>":"(Z)V";
+         invokestatic      Method net/fabricmc/fabric/api/client/networking/v1/ClientPlayNetworking.send:"(Lnet/minecraft/network/protocol/common/custom/CustomPacketPayload;)V";
+  L60:   stack_frame_type  append;  // line 36
+           locals_map      int;
+         return;
+    LineTable:
+         line   27:        0
+         line   29:        8
+         line   30:       15
+         line   31:       26
+         line   33:       40
+         line   34:       49
+         line   36:       60
+  }
+
+  SourceFile               "ChainMiningClient.java";
+
+  InnerClass               public static final enum Type = class com/mojang/blaze3d/platform/InputConstants$Type of class com/mojang/blaze3d/platform/InputConstants;
+  InnerClass               public static final Category = class net/minecraft/client/KeyMapping$Category of class net/minecraft/client/KeyMapping;
+  InnerClass               public static abstract EndTick = class net/fabricmc/fabric/api/client/event/lifecycle/v1/ClientTickEvents$EndTick of class net/fabricmc/fabric/api/client/event/lifecycle/v1/ClientTickEvents;
+  InnerClass               public static final Type = class net/minecraft/network/protocol/common/custom/CustomPacketPayload$Type of class net/minecraft/network/protocol/common/custom/CustomPacketPayload;
+  InnerClass               public static final Lookup = class java/lang/invoke/MethodHandles$Lookup of class java/lang/invoke/MethodHandles;
+
+  BootstrapMethod          REF_invokeStatic:java/lang/invoke/LambdaMetafactory.metafactory:
+                           "(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;";
+                           { 
+                             MethodType "(Lnet/minecraft/client/Minecraft;)V",
+                             MethodHandle REF_invokeStatic:ChainMiningClient.lambda$onInitializeClient$0:"(Lnet/minecraft/client/Minecraft;)V",
+                             MethodType "(Lnet/minecraft/client/Minecraft;)V"
+                           }
+} // end Class com/chainmining/ChainMiningClient
