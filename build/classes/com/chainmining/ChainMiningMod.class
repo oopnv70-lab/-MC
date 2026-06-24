@@ -1,0 +1,737 @@
+package com/chainmining;
+
+public super class ChainMiningMod implements net/fabricmc/api/ModInitializer version 69:0
+{
+  public static final Field MOD_ID:"Ljava/lang/String;" = String "chain-mining";
+  private static final Field ENABLED:"Ljava/util/Map;":"Ljava/util/Map<Lnet/minecraft/world/entity/player/Player;Ljava/lang/Boolean;>;";
+
+  public Method "<init>":"()V"
+    stack 1  locals 1
+  {
+         aload_0;  // line 24
+         invokespecial     Method java/lang/Object."<init>":"()V";
+         return;
+    LineTable:
+         line   24:        0
+  }
+
+  public static Method isEnabled:"(Lnet/minecraft/world/entity/player/Player;)Z"
+    stack 3  locals 1
+  {
+         getstatic         Field ENABLED:"Ljava/util/Map;";  // line 29
+         aload_0;
+         iconst_0;
+         invokestatic      Method java/lang/Boolean.valueOf:"(Z)Ljava/lang/Boolean;";
+         invokeinterface   InterfaceMethod java/util/Map.getOrDefault:"(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", 3;
+         checkcast         class java/lang/Boolean;
+         invokevirtual     Method java/lang/Boolean.booleanValue:"()Z";
+         ireturn;
+    LineTable:
+         line   29:        0
+  }
+
+  public static Method setEnabled:"(Lnet/minecraft/world/entity/player/Player;Z)V"
+    stack 3  locals 2
+  {
+         getstatic         Field ENABLED:"Ljava/util/Map;";  // line 33
+         aload_0;
+         iload_1;
+         invokestatic      Method java/lang/Boolean.valueOf:"(Z)Ljava/lang/Boolean;";
+         invokeinterface   InterfaceMethod java/util/Map.put:"(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", 3;
+         pop;
+         return;  // line 34
+    LineTable:
+         line   33:        0
+         line   34:       14
+  }
+
+  public Method onInitialize:"()V"
+    stack 3  locals 1
+  {
+         aload_0;  // line 38
+         invokevirtual     Method checkDependencies:"()V";
+         invokestatic      InterfaceMethod net/fabricmc/fabric/api/networking/v1/PayloadTypeRegistry.serverboundPlay:"()Lnet/fabricmc/fabric/api/networking/v1/PayloadTypeRegistry;";  // line 40
+         getstatic         Field ChainMiningPacket.TYPE:"Lnet/minecraft/network/protocol/common/custom/CustomPacketPayload$Type;";
+         getstatic         Field ChainMiningPacket.CODEC:"Lnet/minecraft/network/codec/StreamCodec;";
+         invokeinterface   InterfaceMethod net/fabricmc/fabric/api/networking/v1/PayloadTypeRegistry.register:"(Lnet/minecraft/network/protocol/common/custom/CustomPacketPayload$Type;Lnet/minecraft/network/codec/StreamCodec;)Lnet/minecraft/network/protocol/common/custom/CustomPacketPayload$TypeAndCodec;", 3;
+         pop;
+         getstatic         Field ChainMiningPacket.TYPE:"Lnet/minecraft/network/protocol/common/custom/CustomPacketPayload$Type;";  // line 42
+         invokedynamic     InvokeDynamic REF_invokeStatic:Method java/lang/invoke/LambdaMetafactory.metafactory:
+                           "(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;":
+                           receive:"()Lnet/fabricmc/fabric/api/networking/v1/ServerPlayNetworking$PlayPayloadHandler;" {
+                             MethodType "(Lnet/minecraft/network/protocol/common/custom/CustomPacketPayload;Lnet/fabricmc/fabric/api/networking/v1/ServerPlayNetworking$Context;)V",
+                             MethodHandle REF_invokeStatic:Method ChainMiningMod.lambda$onInitialize$0:"(Lcom/chainmining/ChainMiningPacket;Lnet/fabricmc/fabric/api/networking/v1/ServerPlayNetworking$Context;)V",
+                             MethodType "(Lcom/chainmining/ChainMiningPacket;Lnet/fabricmc/fabric/api/networking/v1/ServerPlayNetworking$Context;)V"
+                           };
+         invokestatic      Method net/fabricmc/fabric/api/networking/v1/ServerPlayNetworking.registerGlobalReceiver:"(Lnet/minecraft/network/protocol/common/custom/CustomPacketPayload$Type;Lnet/fabricmc/fabric/api/networking/v1/ServerPlayNetworking$PlayPayloadHandler;)Z";
+         pop;
+         getstatic         Field net/fabricmc/fabric/api/event/player/PlayerBlockBreakEvents.AFTER:"Lnet/fabricmc/fabric/api/event/Event;";  // line 47
+         invokedynamic     InvokeDynamic REF_invokeStatic:Method java/lang/invoke/LambdaMetafactory.metafactory:
+                           "(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;":
+                           afterBlockBreak:"()Lnet/fabricmc/fabric/api/event/player/PlayerBlockBreakEvents$After;" {
+                             MethodType "(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/entity/BlockEntity;)V",
+                             MethodHandle REF_invokeStatic:Method ChainMiningMod.lambda$onInitialize$1:"(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/entity/BlockEntity;)V",
+                             MethodType "(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/entity/BlockEntity;)V"
+                           };
+         invokevirtual     Method net/fabricmc/fabric/api/event/Event.register:"(Ljava/lang/Object;)V";
+         return;  // line 85
+    LineTable:
+         line   38:        0
+         line   40:        4
+         line   42:       19
+         line   47:       31
+         line   85:       42
+  }
+
+  private static Method bfs:"(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;ILnet/minecraft/world/item/ItemStack;Lnet/minecraft/server/level/ServerPlayer;)Ljava/util/List;":"(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;ILnet/minecraft/world/item/ItemStack;Lnet/minecraft/server/level/ServerPlayer;)Ljava/util/List<Lnet/minecraft/core/BlockPos;>;"
+    stack 4  locals 16
+  {
+         new               class java/util/HashSet;  // line 88
+         dup;
+         invokespecial     Method java/util/HashSet."<init>":"()V";
+         astore            6;
+         new               class java/util/ArrayDeque;  // line 89
+         dup;
+         invokespecial     Method java/util/ArrayDeque."<init>":"()V";
+         astore            7;
+         new               class java/util/ArrayList;  // line 90
+         dup;
+         invokespecial     Method java/util/ArrayList."<init>":"()V";
+         astore            8;
+         aload             7;  // line 92
+         aload_1;
+         invokeinterface   InterfaceMethod java/util/Queue.add:"(Ljava/lang/Object;)Z", 2;
+         pop;
+         aload             6;  // line 93
+         aload_1;
+         invokeinterface   InterfaceMethod java/util/Set.add:"(Ljava/lang/Object;)Z", 2;
+         pop;
+  L45:   stack_frame_type  append;  // line 95
+           locals_map      class java/util/Set, class java/util/Queue, class java/util/List;
+         aload             7;
+         invokeinterface   InterfaceMethod java/util/Queue.isEmpty:"()Z", 1;
+         ifne              L275;
+         aload             8;
+         invokeinterface   InterfaceMethod java/util/List.size:"()I", 1;
+         iload_3;
+         if_icmpge         L275;
+         aload             7;  // line 96
+         invokeinterface   InterfaceMethod java/util/Queue.poll:"()Ljava/lang/Object;", 1;
+         checkcast         class net/minecraft/core/BlockPos;
+         astore            9;
+         aload_0;  // line 97
+         aload             9;
+         invokevirtual     Method net/minecraft/server/level/ServerLevel.getBlockState:"(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;";
+         astore            10;
+         aload             10;  // line 100
+         aload_2;
+         invokevirtual     Method net/minecraft/world/level/block/state/BlockState.getBlock:"()Lnet/minecraft/world/level/block/Block;";
+         invokevirtual     Method net/minecraft/world/level/block/state/BlockState.is:"(Ljava/lang/Object;)Z";
+         ifeq              L127;
+         aload             9;
+         aload_1;
+         invokevirtual     Method net/minecraft/core/BlockPos.equals:"(Ljava/lang/Object;)Z";
+         ifne              L127;
+         aload             4;
+         aload             10;
+         invokestatic      Method canToolMine:"(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/level/block/state/BlockState;)Z";  // line 101
+         ifeq              L127;
+         aload             8;  // line 102
+         aload             9;
+         invokeinterface   InterfaceMethod java/util/List.add:"(Ljava/lang/Object;)Z", 2;
+         pop;
+  L127:  stack_frame_type  append;  // line 105
+           locals_map      class net/minecraft/core/BlockPos, class net/minecraft/world/level/block/state/BlockState;
+         bipush            6;
+         anewarray         class net/minecraft/core/BlockPos;
+         dup;
+         iconst_0;
+         aload             9;
+         invokevirtual     Method net/minecraft/core/BlockPos.north:"()Lnet/minecraft/core/BlockPos;";  // line 106
+         aastore;
+         dup;
+         iconst_1;
+         aload             9;
+         invokevirtual     Method net/minecraft/core/BlockPos.south:"()Lnet/minecraft/core/BlockPos;";
+         aastore;
+         dup;
+         iconst_2;
+         aload             9;
+         invokevirtual     Method net/minecraft/core/BlockPos.east:"()Lnet/minecraft/core/BlockPos;";
+         aastore;
+         dup;
+         iconst_3;
+         aload             9;
+         invokevirtual     Method net/minecraft/core/BlockPos.west:"()Lnet/minecraft/core/BlockPos;";
+         aastore;
+         dup;
+         iconst_4;
+         aload             9;
+         invokevirtual     Method net/minecraft/core/BlockPos.above:"()Lnet/minecraft/core/BlockPos;";
+         aastore;
+         dup;
+         iconst_5;
+         aload             9;
+         invokevirtual     Method net/minecraft/core/BlockPos.below:"()Lnet/minecraft/core/BlockPos;";
+         aastore;
+         astore            11;
+         aload             11;  // line 105
+         arraylength;
+         istore            12;
+         iconst_0;
+         istore            13;
+  L190:  stack_frame_type  append;
+           locals_map      class "[Lnet/minecraft/core/BlockPos;", int, int;
+         iload             13;
+         iload             12;
+         if_icmpge         L272;
+         aload             11;
+         iload             13;
+         aaload;
+         astore            14;
+         aload             6;  // line 108
+         aload             14;
+         invokeinterface   InterfaceMethod java/util/Set.contains:"(Ljava/lang/Object;)Z", 2;
+         ifne              L266;
+         aload             6;  // line 109
+         aload             14;
+         invokeinterface   InterfaceMethod java/util/Set.add:"(Ljava/lang/Object;)Z", 2;
+         pop;
+         aload_0;  // line 110
+         aload             14;
+         invokevirtual     Method net/minecraft/server/level/ServerLevel.getBlockState:"(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;";
+         astore            15;
+         aload             15;  // line 111
+         aload_2;
+         invokevirtual     Method net/minecraft/world/level/block/state/BlockState.getBlock:"()Lnet/minecraft/world/level/block/Block;";
+         invokevirtual     Method net/minecraft/world/level/block/state/BlockState.is:"(Ljava/lang/Object;)Z";
+         ifeq              L266;
+         aload             4;
+         aload             15;
+         invokestatic      Method canToolMine:"(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/level/block/state/BlockState;)Z";  // line 112
+         ifeq              L266;
+         aload             7;  // line 113
+         aload             14;
+         invokeinterface   InterfaceMethod java/util/Queue.add:"(Ljava/lang/Object;)Z", 2;
+         pop;
+  L266:  stack_frame_type  same_ex;  // line 105
+         iinc              13, 1;
+         goto              L190;
+  L272:  stack_frame_type  full;  // line 117
+           locals_map      class net/minecraft/server/level/ServerLevel, class net/minecraft/core/BlockPos, class net/minecraft/world/level/block/state/BlockState, int, class net/minecraft/world/item/ItemStack, class net/minecraft/server/level/ServerPlayer, class java/util/Set, class java/util/Queue, class java/util/List;
+           stack_map;
+         goto              L45;
+  L275:  stack_frame_type  same;  // line 119
+         aload             8;
+         areturn;
+    LineTable:
+         line   88:        0
+         line   89:        9
+         line   90:       18
+         line   92:       27
+         line   93:       36
+         line   95:       45
+         line   96:       66
+         line   97:       78
+         line  100:       86
+         line  101:      111
+         line  102:      117
+         line  105:      127
+         line  106:      136
+         line  105:      182
+         line  108:      204
+         line  109:      216
+         line  110:      226
+         line  111:      234
+         line  112:      250
+         line  113:      256
+         line  105:      266
+         line  117:      272
+         line  119:      275
+  }
+
+  private static Method canToolMine:"(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/level/block/state/BlockState;)Z"
+    stack 2  locals 2
+  {
+         aload_1;  // line 129
+         invokevirtual     Method net/minecraft/world/level/block/state/BlockState.requiresCorrectToolForDrops:"()Z";
+         ifne              L9;
+         iconst_1;  // line 130
+         ireturn;
+  L9:    stack_frame_type  same;  // line 132
+         aload_0;
+         aload_1;
+         invokevirtual     Method net/minecraft/world/item/ItemStack.isCorrectToolForDrops:"(Lnet/minecraft/world/level/block/state/BlockState;)Z";
+         ireturn;
+    LineTable:
+         line  129:        0
+         line  130:        7
+         line  132:        9
+  }
+
+  private Method checkDependencies:"()V"
+    stack 7  locals 9
+  {
+         invokestatic      InterfaceMethod net/fabricmc/loader/api/FabricLoader.getInstance:"()Lnet/fabricmc/loader/api/FabricLoader;";  // line 136
+         astore_1;
+         iconst_4;  // line 137
+         anewarray         class "[Ljava/lang/String;";
+         dup;
+         iconst_0;
+         iconst_2;
+         anewarray         class java/lang/String;
+         dup;
+         iconst_0;
+         ldc               String "fabric-api";
+         aastore;
+         dup;
+         iconst_1;
+         ldc               String "0.153.0";
+         aastore;
+         aastore;
+         dup;
+         iconst_1;
+         iconst_2;
+         anewarray         class java/lang/String;
+         dup;
+         iconst_0;
+         ldc               String "fabric-key-mapping-api-v1";
+         aastore;
+         dup;
+         iconst_1;
+         ldc               String "2.0.5";
+         aastore;
+         aastore;
+         dup;
+         iconst_2;
+         iconst_2;
+         anewarray         class java/lang/String;
+         dup;
+         iconst_0;
+         ldc               String "fabric-events-interaction-v0";
+         aastore;
+         dup;
+         iconst_1;
+         ldc               String "5.2.6";
+         aastore;
+         aastore;
+         dup;
+         iconst_3;
+         iconst_2;
+         anewarray         class java/lang/String;
+         dup;
+         iconst_0;
+         ldc               String "fabric-networking-api-v1";
+         aastore;
+         dup;
+         iconst_1;
+         ldc               String "6.3.3";
+         aastore;
+         aastore;
+         astore_2;
+         aload_2;  // line 143
+         astore_3;
+         aload_3;
+         arraylength;
+         istore            4;
+         iconst_0;
+         istore            5;
+  L86:   stack_frame_type  full;
+           locals_map      class ChainMiningMod, class net/fabricmc/loader/api/FabricLoader, class "[[Ljava/lang/String;", class "[[Ljava/lang/String;", int, int;
+           stack_map;
+         iload             5;
+         iload             4;
+         if_icmpge         L146;
+         aload_3;
+         iload             5;
+         aaload;
+         astore            6;
+         aload             6;  // line 144
+         iconst_0;
+         aaload;
+         astore            7;
+         aload             6;  // line 145
+         iconst_1;
+         aaload;
+         astore            8;
+         aload_1;  // line 146
+         aload             7;
+         invokeinterface   InterfaceMethod net/fabricmc/loader/api/FabricLoader.getModContainer:"(Ljava/lang/String;)Ljava/util/Optional;", 2;
+         aload             8;
+         aload             7;
+         invokedynamic     InvokeDynamic REF_invokeStatic:Method java/lang/invoke/LambdaMetafactory.metafactory:
+                           "(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;":
+                           accept:"(Ljava/lang/String;Ljava/lang/String;)Ljava/util/function/Consumer;" {
+                             MethodType "(Ljava/lang/Object;)V",
+                             MethodHandle REF_invokeStatic:Method ChainMiningMod.lambda$checkDependencies$0:"(Ljava/lang/String;Ljava/lang/String;Lnet/fabricmc/loader/api/ModContainer;)V",
+                             MethodType "(Lnet/fabricmc/loader/api/ModContainer;)V"
+                           };
+         aload             7;
+         aload             8;
+         invokedynamic     InvokeDynamic REF_invokeStatic:Method java/lang/invoke/LambdaMetafactory.metafactory:
+                           "(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;":
+                           run:"(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/Runnable;" {
+                             MethodType "()V",
+                             MethodHandle REF_invokeStatic:Method ChainMiningMod.lambda$checkDependencies$1:"(Ljava/lang/String;Ljava/lang/String;)V",
+                             MethodType "()V"
+                           };
+         invokevirtual     Method java/util/Optional.ifPresentOrElse:"(Ljava/util/function/Consumer;Ljava/lang/Runnable;)V";
+         iinc              5, 1;  // line 143
+         goto              L86;
+  L146:  stack_frame_type  chop3;  // line 174
+         return;
+    LineTable:
+         line  136:        0
+         line  137:        4
+         line  143:       77
+         line  144:       99
+         line  145:      105
+         line  146:      111
+         line  143:      140
+         line  174:      146
+  }
+
+  private static synthetic Method lambda$checkDependencies$1:"(Ljava/lang/String;Ljava/lang/String;)V"
+    stack 4  locals 2
+  {
+         new               class java/lang/RuntimeException;  // line 165
+         dup;
+         aload_0;
+         aload_1;
+         invokedynamic     InvokeDynamic REF_invokeStatic:Method java/lang/invoke/StringConcatFactory.makeConcatWithConstants:
+                           "(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite;":
+                           makeConcatWithConstants:"(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;" {
+                             String "\n========================================\n[ChainMining] 缺少必要依赖！\n  缺失模块: \u0001\n  需要版本: >= \u0001\n========================================"
+                           };
+         invokespecial     Method java/lang/RuntimeException."<init>":"(Ljava/lang/String;)V";
+         athrow;
+    LineTable:
+         line  165:        0
+  }
+
+  private static synthetic Method lambda$checkDependencies$0:"(Ljava/lang/String;Ljava/lang/String;Lnet/fabricmc/loader/api/ModContainer;)V"
+    stack 5  locals 6
+  {
+         aload_2;  // line 147
+         invokeinterface   InterfaceMethod net/fabricmc/loader/api/ModContainer.getMetadata:"()Lnet/fabricmc/loader/api/metadata/ModMetadata;", 1;
+         astore_3;
+         try               T0;
+         aload_3;  // line 149
+         invokeinterface   InterfaceMethod net/fabricmc/loader/api/metadata/ModMetadata.getVersion:"()Lnet/fabricmc/loader/api/Version;", 1;
+         astore            4;
+         aload_0;  // line 150
+         invokestatic      InterfaceMethod net/fabricmc/loader/api/Version.parse:"(Ljava/lang/String;)Lnet/fabricmc/loader/api/Version;";
+         astore            5;
+         aload             4;  // line 151
+         aload             5;
+         invokeinterface   InterfaceMethod net/fabricmc/loader/api/Version.compareTo:"(Ljava/lang/Object;)I", 2;
+         ifge              L55;
+         new               class java/lang/RuntimeException;  // line 152
+         dup;
+         aload_1;
+         aload_0;
+         aload             4;
+         invokeinterface   InterfaceMethod net/fabricmc/loader/api/Version.getFriendlyString:"()Ljava/lang/String;", 1;  // line 157
+         invokedynamic     InvokeDynamic REF_invokeStatic:Method java/lang/invoke/StringConcatFactory.makeConcatWithConstants:
+                           "(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite;":
+                           makeConcatWithConstants:"(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;" {
+                             String "\n========================================\n[ChainMining] 依赖版本不满足！\n  模块: \u0001\n  需要: >= \u0001\n  当前: \u0001\n========================================"
+                           };
+         invokespecial     Method java/lang/RuntimeException."<init>":"(Ljava/lang/String;)V";
+         athrow;
+         endtry            T0;
+  L55:   stack_frame_type  append;  // line 163
+           locals_map      class net/fabricmc/loader/api/metadata/ModMetadata;
+         goto              L76;
+         catch             T0 net/fabricmc/loader/api/VersionParsingException;
+         stack_frame_type  stack1;  // line 161
+           stack_map       class net/fabricmc/loader/api/VersionParsingException;
+         astore            4;
+         new               class java/lang/RuntimeException;  // line 162
+         dup;
+         aload_1;
+         invokedynamic     InvokeDynamic REF_invokeStatic:Method java/lang/invoke/StringConcatFactory.makeConcatWithConstants:
+                           "(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite;":
+                           makeConcatWithConstants:"(Ljava/lang/String;)Ljava/lang/String;" {
+                             String "[ChainMining] 无法解析版本号: \u0001"
+                           };
+         aload             4;
+         invokespecial     Method java/lang/RuntimeException."<init>":"(Ljava/lang/String;Ljava/lang/Throwable;)V";
+         athrow;
+  L76:   stack_frame_type  same;  // line 164
+         return;
+    LineTable:
+         line  147:        0
+         line  149:        7
+         line  150:       15
+         line  151:       21
+         line  152:       33
+         line  157:       41
+         line  163:       55
+         line  161:       58
+         line  162:       60
+         line  164:       76
+  }
+
+  private static synthetic Method lambda$onInitialize$1:"(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/entity/BlockEntity;)V"
+    stack 6  locals 16
+  {
+         aload_1;  // line 48
+         instanceof        class net/minecraft/server/level/ServerPlayer;
+         ifeq              L16;
+         aload_1;
+         checkcast         class net/minecraft/server/level/ServerPlayer;
+         astore            5;
+         goto              L17;
+  L16:   stack_frame_type  same;
+         return;
+  L17:   stack_frame_type  append;  // line 49
+           locals_map      class net/minecraft/server/level/ServerPlayer;
+         aload_1;
+         invokestatic      Method isEnabled:"(Lnet/minecraft/world/entity/player/Player;)Z";
+         ifne              L25;
+         return;
+  L25:   stack_frame_type  same;  // line 50
+         aload_0;
+         invokevirtual     Method net/minecraft/world/level/Level.isClientSide:"()Z";
+         ifeq              L33;
+         return;
+  L33:   stack_frame_type  same;  // line 52
+         aload_0;
+         checkcast         class net/minecraft/server/level/ServerLevel;
+         astore            6;
+         aload             5;  // line 53
+         invokevirtual     Method net/minecraft/server/level/ServerPlayer.getMainHandItem:"()Lnet/minecraft/world/item/ItemStack;";
+         astore            7;
+         aload             7;  // line 56
+         invokevirtual     Method net/minecraft/world/item/ItemStack.isEmpty:"()Z";
+         ifeq              L55;
+         return;
+  L55:   stack_frame_type  append;  // line 57
+           locals_map      class net/minecraft/server/level/ServerLevel, class net/minecraft/world/item/ItemStack;
+         aload             7;
+         invokevirtual     Method net/minecraft/world/item/ItemStack.getMaxDamage:"()I";
+         istore            8;
+         iload             8;  // line 58
+         ifgt              L68;
+         return;
+  L68:   stack_frame_type  append;  // line 60
+           locals_map      int;
+         aload             7;
+         invokevirtual     Method net/minecraft/world/item/ItemStack.getDamageValue:"()I";
+         istore            9;
+         iload             8;  // line 61
+         iload             9;
+         isub;
+         istore            10;
+         iload             10;  // line 62
+         ifgt              L88;
+         return;
+  L88:   stack_frame_type  append;  // line 65
+           locals_map      int, int;
+         aload             6;
+         aload_2;
+         aload_3;
+         bipush            64;
+         iload             10;
+         invokestatic      Method java/lang/Math.min:"(II)I";
+         aload             7;
+         aload             5;
+         invokestatic      Method bfs:"(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;ILnet/minecraft/world/item/ItemStack;Lnet/minecraft/server/level/ServerPlayer;)Ljava/util/List;";
+         astore            11;
+         aload             11;  // line 67
+         invokeinterface   InterfaceMethod java/util/List.isEmpty:"()Z", 1;
+         ifeq              L119;
+         return;
+  L119:  stack_frame_type  append;  // line 69
+           locals_map      class java/util/List;
+         aload             11;
+         invokeinterface   InterfaceMethod java/util/List.size:"()I", 1;
+         iload             10;
+         invokestatic      Method java/lang/Math.min:"(II)I";
+         istore            12;
+         iconst_0;  // line 71
+         istore            13;
+  L136:  stack_frame_type  append;
+           locals_map      int, int;
+         iload             13;
+         iload             12;
+         if_icmpge         L235;
+         aload             11;  // line 72
+         iload             13;
+         invokeinterface   InterfaceMethod java/util/List.get:"(I)Ljava/lang/Object;", 2;
+         checkcast         class net/minecraft/core/BlockPos;
+         astore            14;
+         aload             6;  // line 73
+         aload             14;
+         invokevirtual     Method net/minecraft/server/level/ServerLevel.getBlockState:"(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;";
+         astore            15;
+         aload             15;  // line 75
+         aload_3;
+         invokevirtual     Method net/minecraft/world/level/block/state/BlockState.getBlock:"()Lnet/minecraft/world/level/block/Block;";
+         invokevirtual     Method net/minecraft/world/level/block/state/BlockState.is:"(Ljava/lang/Object;)Z";
+         ifne              L181;
+         goto              L229;
+  L181:  stack_frame_type  append;  // line 77
+           locals_map      class net/minecraft/core/BlockPos, class net/minecraft/world/level/block/state/BlockState;
+         aload             6;
+         aload             14;
+         iconst_0;
+         invokevirtual     Method net/minecraft/server/level/ServerLevel.removeBlock:"(Lnet/minecraft/core/BlockPos;Z)Z";
+         pop;
+         aload             15;  // line 78
+         aload             6;
+         aload             14;
+         aconst_null;
+         aload_1;
+         aload             7;
+         invokevirtual     Method net/minecraft/world/item/ItemStack.copy:"()Lnet/minecraft/world/item/ItemStack;";
+         invokestatic      Method net/minecraft/world/level/block/Block.dropResources:"(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/entity/BlockEntity;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/item/ItemStack;)V";
+         aload             7;  // line 80
+         invokevirtual     Method net/minecraft/world/item/ItemStack.isEmpty:"()Z";
+         ifne              L229;
+         aload             7;  // line 81
+         iconst_1;
+         aload             6;
+         aload             5;
+         invokedynamic     InvokeDynamic REF_invokeStatic:Method java/lang/invoke/LambdaMetafactory.metafactory:
+                           "(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;":
+                           accept:"()Ljava/util/function/Consumer;" {
+                             MethodType "(Ljava/lang/Object;)V",
+                             MethodHandle REF_invokeStatic:Method ChainMiningMod.lambda$onInitialize$2:"(Lnet/minecraft/world/item/Item;)V",
+                             MethodType "(Lnet/minecraft/world/item/Item;)V"
+                           };
+         invokevirtual     Method net/minecraft/world/item/ItemStack.hurtAndBreak:"(ILnet/minecraft/server/level/ServerLevel;Lnet/minecraft/server/level/ServerPlayer;Ljava/util/function/Consumer;)V";
+  L229:  stack_frame_type  chop2;  // line 71
+         iinc              13, 1;
+         goto              L136;
+  L235:  stack_frame_type  chop1;  // line 84
+         return;
+    LineTable:
+         line   48:        0
+         line   49:       17
+         line   50:       25
+         line   52:       33
+         line   53:       39
+         line   56:       46
+         line   57:       55
+         line   58:       62
+         line   60:       68
+         line   61:       75
+         line   62:       82
+         line   65:       88
+         line   67:      108
+         line   69:      119
+         line   71:      133
+         line   72:      143
+         line   73:      157
+         line   75:      166
+         line   77:      181
+         line   78:      190
+         line   80:      206
+         line   81:      214
+         line   71:      229
+         line   84:      235
+  }
+
+  private static synthetic Method lambda$onInitialize$2:"(Lnet/minecraft/world/item/Item;)V"
+    stack 0  locals 1
+  {
+         return;  // line 81
+    LineTable:
+         line   81:        0
+  }
+
+  private static synthetic Method lambda$onInitialize$0:"(Lcom/chainmining/ChainMiningPacket;Lnet/fabricmc/fabric/api/networking/v1/ServerPlayNetworking$Context;)V"
+    stack 2  locals 2
+  {
+         aload_1;  // line 43
+         invokeinterface   InterfaceMethod net/fabricmc/fabric/api/networking/v1/ServerPlayNetworking$Context.player:"()Lnet/minecraft/server/level/ServerPlayer;", 1;
+         aload_0;
+         invokevirtual     Method ChainMiningPacket.enabled:"()Z";
+         invokestatic      Method setEnabled:"(Lnet/minecraft/world/entity/player/Player;Z)V";
+         return;  // line 44
+    LineTable:
+         line   43:        0
+         line   44:       13
+  }
+
+  static Method "<clinit>":"()V"
+    stack 2  locals 0
+  {
+         new               class java/util/WeakHashMap;  // line 26
+         dup;
+         invokespecial     Method java/util/WeakHashMap."<init>":"()V";
+         putstatic         Field ENABLED:"Ljava/util/Map;";
+         return;
+    LineTable:
+         line   26:        0
+  }
+
+  SourceFile               "ChainMiningMod.java";
+
+  InnerClass               public static final Type = class net/minecraft/network/protocol/common/custom/CustomPacketPayload$Type of class net/minecraft/network/protocol/common/custom/CustomPacketPayload;
+  InnerClass               public static final TypeAndCodec = class net/minecraft/network/protocol/common/custom/CustomPacketPayload$TypeAndCodec of class net/minecraft/network/protocol/common/custom/CustomPacketPayload;
+  InnerClass               public static abstract PlayPayloadHandler = class net/fabricmc/fabric/api/networking/v1/ServerPlayNetworking$PlayPayloadHandler of class net/fabricmc/fabric/api/networking/v1/ServerPlayNetworking;
+  InnerClass               public static abstract After = class net/fabricmc/fabric/api/event/player/PlayerBlockBreakEvents$After of class net/fabricmc/fabric/api/event/player/PlayerBlockBreakEvents;
+  InnerClass               public static abstract Context = class net/fabricmc/fabric/api/networking/v1/ServerPlayNetworking$Context of class net/fabricmc/fabric/api/networking/v1/ServerPlayNetworking;
+  InnerClass               public static final Lookup = class java/lang/invoke/MethodHandles$Lookup of class java/lang/invoke/MethodHandles;
+
+  BootstrapMethod          REF_invokeStatic:java/lang/invoke/LambdaMetafactory.metafactory:
+                           "(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;";
+                           { 
+                             MethodType "(Lnet/minecraft/network/protocol/common/custom/CustomPacketPayload;Lnet/fabricmc/fabric/api/networking/v1/ServerPlayNetworking$Context;)V",
+                             MethodHandle REF_invokeStatic:ChainMiningMod.lambda$onInitialize$0:"(Lcom/chainmining/ChainMiningPacket;Lnet/fabricmc/fabric/api/networking/v1/ServerPlayNetworking$Context;)V",
+                             MethodType "(Lcom/chainmining/ChainMiningPacket;Lnet/fabricmc/fabric/api/networking/v1/ServerPlayNetworking$Context;)V"
+                           }
+
+  BootstrapMethod          REF_invokeStatic:java/lang/invoke/LambdaMetafactory.metafactory:
+                           "(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;";
+                           { 
+                             MethodType "(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/entity/BlockEntity;)V",
+                             MethodHandle REF_invokeStatic:ChainMiningMod.lambda$onInitialize$1:"(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/entity/BlockEntity;)V",
+                             MethodType "(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/entity/BlockEntity;)V"
+                           }
+
+  BootstrapMethod          REF_invokeStatic:java/lang/invoke/LambdaMetafactory.metafactory:
+                           "(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;";
+                           { 
+                             MethodType "(Ljava/lang/Object;)V",
+                             MethodHandle REF_invokeStatic:ChainMiningMod.lambda$checkDependencies$0:"(Ljava/lang/String;Ljava/lang/String;Lnet/fabricmc/loader/api/ModContainer;)V",
+                             MethodType "(Lnet/fabricmc/loader/api/ModContainer;)V"
+                           }
+
+  BootstrapMethod          REF_invokeStatic:java/lang/invoke/LambdaMetafactory.metafactory:
+                           "(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;";
+                           { 
+                             MethodType "()V",
+                             MethodHandle REF_invokeStatic:ChainMiningMod.lambda$checkDependencies$1:"(Ljava/lang/String;Ljava/lang/String;)V",
+                             MethodType "()V"
+                           }
+
+  BootstrapMethod          REF_invokeStatic:java/lang/invoke/StringConcatFactory.makeConcatWithConstants:
+                           "(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite;";
+                           { 
+                             String "\n========================================\n[ChainMining] 缺少必要依赖！\n  缺失模块: \u0001\n  需要版本: >= \u0001\n========================================"
+                           }
+
+  BootstrapMethod          REF_invokeStatic:java/lang/invoke/StringConcatFactory.makeConcatWithConstants:
+                           "(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite;";
+                           { 
+                             String "\n========================================\n[ChainMining] 依赖版本不满足！\n  模块: \u0001\n  需要: >= \u0001\n  当前: \u0001\n========================================"
+                           }
+
+  BootstrapMethod          REF_invokeStatic:java/lang/invoke/StringConcatFactory.makeConcatWithConstants:
+                           "(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite;";
+                           { 
+                             String "[ChainMining] 无法解析版本号: \u0001"
+                           }
+
+  BootstrapMethod          REF_invokeStatic:java/lang/invoke/LambdaMetafactory.metafactory:
+                           "(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;";
+                           { 
+                             MethodType "(Ljava/lang/Object;)V",
+                             MethodHandle REF_invokeStatic:ChainMiningMod.lambda$onInitialize$2:"(Lnet/minecraft/world/item/Item;)V",
+                             MethodType "(Lnet/minecraft/world/item/Item;)V"
+                           }
+} // end Class com/chainmining/ChainMiningMod
